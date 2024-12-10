@@ -38,14 +38,16 @@ class Plateau {
         std::vector<std::vector<Case>> plateau;
 
         void initTab(){
-            std::string colonnes = "abcdefgh";
-            for(int i=0; i<8; i++){
+            std::string ordrepieces = "TCFRDFCT";
+
+            for(int i=2; i<6; i++){
                 for(int j=0; j<8; j++){
-                    plateau[i][j].pos = colonnes[j] + std::to_string(8 - i);
+                    plateau[i][j].pos = std::to_string('a'+ j) + std::to_string(8 - i);
                     plateau[i][j].piece = '\0';
                     plateau[i][j].col = AUCUNE;
                 }
             }
+
             // init Pions (P)
             for(int i=0; i<8; i++){
                 plateau[1][i].piece = 'P';
@@ -55,51 +57,12 @@ class Plateau {
                 plateau[6][i].col = BLANC;
             }
 
-            // init tour (T)
-            plateau[0][0].piece = 'T';
-            plateau[0][0].col = NOIR;
-            plateau[0][7].piece = 'T';
-            plateau[0][7].col = NOIR;
+            for(int i=0; i<8; i++){
+                plateau[0][i].piece = ordrepieces[i];
+                plateau[0][i].col = NOIR;
 
-            plateau[7][0].piece = 'T';
-            plateau[7][0].col = BLANC;
-            plateau[7][7].piece = 'T';
-            plateau[7][7].col = BLANC;
-
-            //init Chavaliers (C)
-            plateau[0][1].piece = 'C';
-            plateau[0][1].col = NOIR;
-            plateau[0][6].piece = 'C';
-            plateau[0][6].col = NOIR;
-
-            plateau[7][1].piece = 'C';
-            plateau[7][1].col = BLANC;
-            plateau[7][6].piece = 'C';
-            plateau[7][6].col = BLANC;
-
-            // init Fous (F)
-            plateau[0][2].piece = 'F';
-            plateau[0][2].col = NOIR;
-            plateau[0][5].piece = 'F';
-            plateau[0][5].col = NOIR;
-
-            plateau[7][2].piece = 'F';
-            plateau[7][2].col = BLANC;
-            plateau[7][5].piece = 'F';
-            plateau[7][5].col = BLANC;
-
-            // init Dame (D)
-            plateau[0][4].piece = 'D';
-            plateau[0][4].col = NOIR;
-
-            plateau[7][4].piece = 'D';
-            plateau[7][4].col = BLANC;
-
-            // init Roi (R)
-            plateau[0][3].piece = 'R';
-            plateau[0][3].col = NOIR;
-
-            plateau[7][3].piece = 'R';
-            plateau[7][3].col = BLANC;
+                plateau[7][i].piece = ordrepieces[i];
+                plateau[7][i].col = BLANC;
+            }
         }
 };
