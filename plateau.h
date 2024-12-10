@@ -34,6 +34,11 @@ class Plateau {
             }
         }
 
+        void deplacerPiece(std::string &depart, std::string &arrive){
+            auto [x1, y1] = convertirPosition(depart);
+            auto [x2, y2] = convertirPosition(arrive);
+        }
+
     private:
         std::vector<std::vector<Case>> plateau;
 
@@ -64,5 +69,14 @@ class Plateau {
                 plateau[7][i].piece = ordrepieces[i];
                 plateau[7][i].col = BLANC;
             }
+        }
+
+        std::pair<int, int> convertirPosition(std::string pos){
+            if (pos.size() != 2 || pos[0] < 'a' || pos[0] > 'h' || pos[1] < '1' || pos[1] > '8') {
+                throw std::invalid_argument("Position invalide !");
+            }
+            int x = 8 - (pos[1] - '0');
+            int y = pos[0] - 'a';
+            return {x, y};
         }
 };
