@@ -1,6 +1,9 @@
-#include <iostream>
+#include "plateau.h"
 
 int main(){
- std::cout << "Echecs en cpp" << std::endl;
- return 0;
+    Plateau p = Plateau();
+
+    p.afficher();
+
+    return 0;
 }
