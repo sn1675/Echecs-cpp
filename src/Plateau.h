@@ -53,16 +53,13 @@ class Plateau {
                 }
             }
 
-            // init Pions (P)
             for(int i=0; i<8; i++){
                 plateau[1][i].piece = 'P';
                 plateau[1][i].col = NOIR;
 
                 plateau[6][i].piece = 'P';
                 plateau[6][i].col = BLANC;
-            }
 
-            for(int i=0; i<8; i++){
                 plateau[0][i].piece = ordrepieces[i];
                 plateau[0][i].col = NOIR;
 

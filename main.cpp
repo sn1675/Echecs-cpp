@@ -1,4 +1,4 @@
-#include "plateau.h"
+#include "src/Plateau.h"
 
 int main(){
     Plateau p = Plateau();
