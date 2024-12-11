@@ -1,6 +1,7 @@
-#include <iostream>
+#include "src/Game.h"
 
 int main(){
- std::cout << "Echecs en cpp" << std::endl;
- return 0;
+    Game G = Game();
+
+    return 0;
 }
