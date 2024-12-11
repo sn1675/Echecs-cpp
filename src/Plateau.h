@@ -34,13 +34,21 @@ class Plateau {
             }
         }
 
-        void deplacerPiece(std::string &depart, std::string &arrive){
+        void deplacerPiece(const std::string &depart, const std::string &arrive){
             auto [x1, y1] = convertirPosition(depart);
             auto [x2, y2] = convertirPosition(arrive);
+
+            plateau[x2][y2].piece = plateau[x1][y1].piece;
+            plateau[x2][y2].col = plateau[x1][y1].col;
+
+            plateau[x1][y1].piece = '\0';
+            plateau[x1][y1].col = AUCUNE;
         }
 
     private:
         std::vector<std::vector<Case>> plateau;
+
+        int p[8][8];
 
         void initTab(){
             std::string ordrepieces = "TCFRDFCT";

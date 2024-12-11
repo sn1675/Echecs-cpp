@@ -1,8 +1,7 @@
-#include "src/Plateau.h"
+#include "src/Game.h"
 
 int main(){
-    Plateau p = Plateau();
+    Game G = Game();
 
-    p.afficher();
     return 0;
 }
