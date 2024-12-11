@@ -1,3 +1,4 @@
+#include <cstddef>
 #include <iostream>
 #include <vector>
 #include <string>
@@ -45,6 +46,19 @@ class Plateau {
             plateau[x1][y1].col = AUCUNE;
         }
 
+        int verifPosition(std::string pos){
+            if(pos.size() != 4 ? 1 : 0){ return 0; }
+
+            std::string c1 = std::string()+ pos[0] + pos[1];
+            std::string c2 = std::string()+ pos[2] + pos[3];
+
+
+            if(c1[0] < 'a' || c1[0] > 'h' || c1[1] < '1' || c1[1] > '8') { return 0; }
+            if(c2[0] < 'a' || c2[0] > 'h' || c2[1] < '1' || c2[1] > '8') { return 0; }
+
+            return 1;
+        }
+
     private:
         std::vector<std::vector<Case>> plateau;
 
@@ -77,9 +91,6 @@ class Plateau {
         }
 
         std::pair<int, int> convertirPosition(std::string pos){
-            if (pos.size() != 2 || pos[0] < 'a' || pos[0] > 'h' || pos[1] < '1' || pos[1] > '8') {
-                throw std::invalid_argument("Position invalide !");
-            }
             int x = 8 - (pos[1] - '0');
             int y = pos[0] - 'a';
             return {x, y};

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iterator>
 #include "Plateau.h"
 
 class Game {
@@ -19,9 +20,11 @@ class Game {
                 P.afficher();
 
                 std::cout << "Choisisez un mouvement [Dep][Arrive] :"; std::cin >> choix;
-
-                P.deplacerPiece(std::string() + choix[0]+choix[1], std::string() + choix[2]+choix[3]);
+                if(P.verifPosition(choix)){
+                    P.deplacerPiece(std::string() + choix[0]+choix[1], std::string() + choix[2]+choix[3]);
+                }else {
+                    std::cout << "mauvaise position" << std::endl;
+                }
             }
-
         }
 };
