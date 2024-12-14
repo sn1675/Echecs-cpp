@@ -1,4 +1,3 @@
-#include "src/Game.h"
 #include "src/Fenetre.h"
 
 int main(){
