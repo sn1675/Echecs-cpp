@@ -1,7 +1,8 @@
-#include "src/Fenetre.h"
+
+#include "src/Game.h"
 
 int main(){
-    Fenetre F = Fenetre();
+    Game G = Game();
     return 0;
 }
 //g++ main.cpp -o main -lsfml-graphics -lsfml-window -lsfml-system
