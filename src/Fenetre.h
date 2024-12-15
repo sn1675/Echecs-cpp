@@ -1,14 +1,22 @@
+#ifndef FENETRE_H
+#define FENETRE_H
+
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include "Piece.h"
+#include "Plateau.h"
 
 class Fenetre {
     public:
+        sf::RenderWindow fen;
+        Plateau Plat;
+        Piece P;
+
         Fenetre() {
             render();
         }
 
     private:
-        sf::RenderWindow fen;
 
         void render() {
             sf::VideoMode mode = sf::VideoMode::getDesktopMode();
@@ -29,26 +37,27 @@ class Fenetre {
                             if (pleinEcran) {
                                 fen.create(mode, "airChess", sf::Style::Fullscreen);
                             } else {
-                                fen.create(sf::VideoMode(800, 800), "airChess");
+                                fen.create(sf::VideoMode(1200, 800), "airChess");
                             }
                         }
                     }
                 }
-                fen.clear(sf::Color::Black);
 
-                dessine();
+                fen.clear(sf::Color (45, 45, 45));
+
+                dessineGame();
 
                 fen.display();
             }
         }
 
-        void dessine() {
-            sf::RectangleShape rectangle(sf::Vector2f(200.f, 100.f));
-            rectangle.setFillColor(sf::Color::Green);
-            rectangle.setPosition(100, 100);
-            fen.draw(rectangle);
+        void dessineGame(){
+            Plat.dessinePlateau(fen);
+            P.dessinePieces(fen, Plat);
         }
 
         void FenetreMenu() {
         }
 };
+
+#endif // FENETRE_H
