@@ -25,8 +25,8 @@ class Piece{
                         sf::Sprite& sprite = piecesSprites[piece];
                         sprite.setPosition(Plat.posPlatX + (i*Plat.tailleCase), Plat.posPlatY + j*(Plat.tailleCase));
 
-                        sprite.setScale(Plat.tailleCase/sprite.getTexture()->getSize().x + 0.45,
-                                        Plat.tailleCase/sprite.getTexture()->getSize().y +0.45);
+                        sprite.setScale((float) Plat.tailleCase/sprite.getTexture()->getSize().x + 0.45,
+                                        (float) Plat.tailleCase/sprite.getTexture()->getSize().y +0.45);
                         fen.draw(sprite);
                     }
                 }
