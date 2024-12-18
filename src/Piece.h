@@ -9,7 +9,6 @@
 class Piece{
     public:
 
-
         Piece(){
             if(!chargerSprites()){
                 std::cout << "erreur sprites" << std::endl;
@@ -17,7 +16,7 @@ class Piece{
             }
         }
 
-        void dessinePieces(sf::RenderWindow& fen, const Plateau& Plat){
+        void dessinePieces(sf::RenderWindow& fen, Plateau& Plat){
             for(int i=0; i<8; i++){
                 for(int j=0; j<8; j++){
                     char piece = Plat.board[j][i];
@@ -25,12 +24,19 @@ class Piece{
                         sf::Sprite& sprite = piecesSprites[piece];
                         sprite.setPosition(Plat.posPlatX + (i*Plat.tailleCase), Plat.posPlatY + j*(Plat.tailleCase));
 
-                        sprite.setScale((float) Plat.tailleCase/sprite.getTexture()->getSize().x + 0.45,
-                                        (float) Plat.tailleCase/sprite.getTexture()->getSize().y +0.45);
+                        sprite.setScale((float) Plat.tailleCase/sprite.getTexture()->getSize().x,
+                                        (float) Plat.tailleCase/sprite.getTexture()->getSize().y);
                         fen.draw(sprite);
                     }
                 }
             }
+        }
+
+        void deplacerPiece(Plateau& Plat, int xDep, int yDep, int xArr, int yArr){
+            std::cout << "test 1" << std::endl;
+            char piece = Plat.board[yDep][xDep];
+            Plat.board[yDep][xDep] = '.';
+            Plat.board[yArr][xArr] = piece;
         }
 
     private:
@@ -38,7 +44,6 @@ class Piece{
 
         sf::Texture sprites[12];
         std::map<char, sf::Sprite> piecesSprites;
-
 
         bool chargerSprites(){
 
