@@ -33,7 +33,6 @@ class Piece{
         }
 
         void deplacerPiece(Plateau& Plat, int xDep, int yDep, int xArr, int yArr){
-            std::cout << "test 1" << std::endl;
             char piece = Plat.board[yDep][xDep];
             Plat.board[yDep][xDep] = '.';
             Plat.board[yArr][xArr] = piece;
