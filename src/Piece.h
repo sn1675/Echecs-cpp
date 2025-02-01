@@ -38,6 +38,12 @@ class Piece{
             Plat.board[yArr][xArr] = piece;
         }
 
+        void verifDeplacement(Plateau& Plat, int xDep, int yDep, int xArr, int yArr){
+            if(Plat.board[xDep][yDep]){
+
+            }
+        }
+
     private:
         std::string ordrePiece = "PpRrNnFfKkQq";
 
