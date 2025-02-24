@@ -10,9 +10,9 @@
 
 class Plateau{
     public:
-        int tailleCase = 90;
+        int tailleCase = 120;
         int posPlatX = 50;
-        int posPlatY = 40;
+        int posPlatY = 70;
 
         std::string board[8] = {
             "rnfqkfnr", // Ligne des pièces noires

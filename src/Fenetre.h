@@ -6,6 +6,7 @@
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Window/Event.hpp>
 #include <SFML/Window/VideoMode.hpp>
+#include <SFML/Window/WindowStyle.hpp>
 #include <iostream>
 
 #include "Piece.h"
@@ -27,7 +28,7 @@ class Fenetre {
 
         void render() {
             sf::VideoMode mode = sf::VideoMode::getDesktopMode();
-            fen.create(sf::VideoMode(1200, 800), "airChess");
+            fen.create(mode, "airChess", sf::Style::Fullscreen);
 
             bool pleinEcran = false;
 
@@ -38,8 +39,6 @@ class Fenetre {
                         fen.close();
                     }
 
-                    switchToGrandEgrand(event, mode, pleinEcran);
-
                     click(event);
                 }
 
@@ -49,19 +48,6 @@ class Fenetre {
 
                 fen.display();
             }
-        }
-
-        void switchToGrandEgrand(sf::Event event, sf::VideoMode mode, bool pleinEcran){
-            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F11) {
-                pleinEcran = !pleinEcran;
-                fen.close();
-                if (pleinEcran) {
-                    fen.create(mode, "airChess", sf::Style::Fullscreen);
-                } else {
-                    fen.create(sf::VideoMode(1200, 800), "airChess");
-                }
-            }
-
         }
 
         void click(sf::Event event){
