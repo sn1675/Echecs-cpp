@@ -45,6 +45,15 @@ class Piece{
         }
 
     private:
+        /*
+         Pieces :
+            P & p = Pawn (Pion)
+            R & r = Rook (Tour)
+            N & n = Knight (Chavalier)
+            F & f = Bishop (Fou)
+            Q & q = Queen (Reine)
+            K & k = King (Roi)
+         */
         std::string ordrePiece = "PpRrNnFfKkQq";
 
         sf::Texture sprites[12];
