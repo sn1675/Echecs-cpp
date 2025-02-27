@@ -2,6 +2,7 @@
 #define FENETRE_H
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Window/Event.hpp>
@@ -11,6 +12,7 @@
 
 #include "Piece.h"
 #include "Plateau.h"
+#include "Text.h"
 
 class Fenetre {
     public:
@@ -73,6 +75,10 @@ class Fenetre {
         void dessineGame(){
             Plat.dessinePlateau(fen);
             P.dessinePieces(fen, Plat);
+            Text TimerBlanc = Text("0:0", 970.f, 30.f, sf::Color::White, 30);
+            TimerBlanc.drawText(fen);
+            Text TimerNoir = Text("0:0", 970.f, 1030.f, sf::Color::White, 30);
+            TimerNoir.drawText(fen);
         }
 
 
