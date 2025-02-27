@@ -9,12 +9,12 @@
 class Text {
     public:
 
-        Text(const std::string& texte, float posX, float posY, sf::Color col) {
+        Text(const std::string& texte, float posX, float posY, sf::Color col = sf::Color::White, int size = 20) {
             if(!font.loadFromFile("./fonts/OpenSans-Bold.ttf")){ std::cerr << "Erreur de chargement des polices" << std::endl; };
 
 
             t.setString(texte);
-            t.setCharacterSize(20);
+            t.setCharacterSize(size);
             t.setFillColor(col);
             t.setFont(font);
             t.setPosition(posX, posY);
