@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Color.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/Text.hpp>
 #include <string>
 
@@ -13,6 +14,7 @@ class Plateau{
         int tailleCase = 120;
         int posPlatX = 50;
         int posPlatY = 70;
+
 
         std::string board[8] = {
             "rnfqkfnr", // Ligne des pièces noires
@@ -25,16 +27,25 @@ class Plateau{
             "RNFQKFNR"  // Ligne des pièces blanches
         };
 
-
         Plateau(){}
 
-        void dessinePlateau(sf::RenderWindow& fen) {
+        void dessinePlateau(sf::RenderWindow& fen, Plateau& Plat, int xDep, int yDep) {
             for(int i=0; i<8; i++){
                 for(int j=0; j<8; j++){
                     sf::RectangleShape rectangle(sf::Vector2f(tailleCase + 0.f, tailleCase+ 0.f));
-                    (i+j)%2 == 0 ? rectangle.setFillColor(sf::Color::White) : rectangle.setFillColor(colBlue);
                     rectangle.setPosition(posPlatX + (i*tailleCase), posPlatY + j*(tailleCase));
+                    if(i != yDep || j != xDep){
+                        (i+j)%2 == 0 ? rectangle.setFillColor(sf::Color::White) : rectangle.setFillColor(colBlue);
+                    } else {
+                        rectangle.setFillColor(sf::Color::Yellow);
+                    }
+                    if(xDep != -1){
+                     affichePossible(fen, Plat, xDep, yDep, rectangle);
+                    }
+
                     fen.draw(rectangle);
+
+                    //position des cases
                     if(i == 0){
                         Text t = Text(std::to_string(8 - j), posPlatX + (i * tailleCase), posPlatY + (j * tailleCase), j%2 == 0 ? colBlue : sf::Color::White);
                         t.drawText(fen);
@@ -47,6 +58,66 @@ class Plateau{
                 }
             }
         }
+
+        void affichePossible(sf::RenderWindow& fen, Plateau& Plat, int xDep, int yDep, sf::RectangleShape rect){
+            if(Plat.board[xDep][yDep] != '.'){
+                switch (Plat.board[xDep][yDep]) {
+                    case 'p':
+                        checkPionNoir(fen, Plat, xDep, yDep, rect);
+                        break;
+                    case 'P':
+                        checkPionBlanc(fen, Plat, xDep, yDep, rect);
+                        break;
+
+                    case 't':
+                    case 'T':
+                        checkTour(fen, Plat, xDep, yDep, rect);
+                        break;
+
+                    case 'n':
+                    case 'N':
+                        checkChavalier(fen, Plat, xDep, yDep, rect);
+                        break;
+
+                    case 'f':
+                    case 'F':
+                        checkFou(fen, Plat, xDep, yDep, rect);
+                        break;
+
+                    case 'q':
+                    case 'Q':
+                        checkDame(fen, Plat, xDep, yDep, rect);
+                        break;
+
+                    case 'k':
+                    case 'K':
+                        checkRoi(fen, Plat, xDep, yDep, rect);
+                        break;
+                }
+            }
+        }
+
+        void checkPionBlanc(sf::RenderWindow& fen, Plateau& Plat, int xDep, int yDep, sf::RectangleShape rect){
+            rect.setFillColor(sf::Color::Green);
+            if(xDep == 6) {
+                rect.setPosition(posPlatX + (yDep*tailleCase), posPlatY + ((xDep-2)*tailleCase));
+                fen.draw(rect);
+            }
+            rect.setPosition(posPlatX + (yDep*tailleCase), posPlatY + ((xDep-1)*tailleCase));
+            fen.draw(rect);
+        }
+
+        void checkPionNoir(sf::RenderWindow& fen, Plateau& Plat, int xDep, int yDep, sf::RectangleShape rect){}
+
+        void checkTour(sf::RenderWindow& fen, Plateau& Plat, int xDep, int yDep, sf::RectangleShape rect){}
+
+        void checkChavalier(sf::RenderWindow& fen, Plateau& Plat, int xDep, int yDep, sf::RectangleShape rect){}
+
+        void checkFou(sf::RenderWindow& fen, Plateau& Plat, int xDep, int yDep, sf::RectangleShape rect){}
+
+        void checkDame(sf::RenderWindow& fen, Plateau& Plat, int xDep, int yDep, sf::RectangleShape rect){}
+
+        void checkRoi(sf::RenderWindow& fen, Plateau& Plat, int xDep, int yDep, sf::RectangleShape rect){}
 
     private:
         sf::Color colBlue = sf::Color (42, 113, 176);

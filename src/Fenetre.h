@@ -32,8 +32,6 @@ class Fenetre {
             sf::VideoMode mode = sf::VideoMode::getDesktopMode();
             fen.create(mode, "airChess", sf::Style::Fullscreen);
 
-            bool pleinEcran = false;
-
             while (fen.isOpen()) {
                 sf::Event event;
                 while (fen.pollEvent(event)) {
@@ -57,13 +55,13 @@ class Fenetre {
                 int x = (event.mouseButton.x - Plat.posPlatX) / Plat.tailleCase;
                 int y = (event.mouseButton.y - Plat.posPlatY) / Plat.tailleCase;
 
-                if (x >= 0 && x < 8 && y >= 0 && y < 8) {
+                if (x >= 0 && x < 8 && y >= 0 && y < 8){
                     if (clicDepart.x == -1) {
-                        clicDepart = sf::Vector2i(x, y);
+                        clicDepart = sf::Vector2i(y, x);
 
                     } else {
-                        int xArrivee = x;
-                        int yArrivee = y;
+                        int xArrivee = y; //j'inverse a cause d'un problème de definition du plateau les pieces se retrouvaient sur le coté de l'échiquier
+                        int yArrivee = x; //pareil ici
 
                         P.deplacerPiece(Plat, clicDepart.x, clicDepart.y, xArrivee, yArrivee);
                         clicDepart = sf::Vector2i(-1, -1);
@@ -73,7 +71,7 @@ class Fenetre {
         }
 
         void dessineGame(){
-            Plat.dessinePlateau(fen);
+            Plat.dessinePlateau(fen, Plat, clicDepart.x, clicDepart.y);
             P.dessinePieces(fen, Plat);
             Text TimerBlanc = Text("0:0", 970.f, 30.f, sf::Color::White, 30);
             TimerBlanc.drawText(fen);

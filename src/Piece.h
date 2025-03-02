@@ -1,6 +1,10 @@
 #ifndef PIECE_H
 #define PIECE_H
 
+#include <SFML/Graphics/Color.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/System/Vector2.hpp>
 #include <iostream>
 #include <map>
 
@@ -19,10 +23,10 @@ class Piece{
         void dessinePieces(sf::RenderWindow& fen, Plateau& Plat){
             for(int i=0; i<8; i++){
                 for(int j=0; j<8; j++){
-                    char piece = Plat.board[j][i];
+                    char piece = Plat.board[i][j];
                     if(piece != '.'){
                         sf::Sprite& sprite = piecesSprites[piece];
-                        sprite.setPosition(Plat.posPlatX + (i*Plat.tailleCase), Plat.posPlatY + j*(Plat.tailleCase));
+                        sprite.setPosition(Plat.posPlatX + (j*Plat.tailleCase), Plat.posPlatY + i*(Plat.tailleCase));
 
                         sprite.setScale((float) Plat.tailleCase/sprite.getTexture()->getSize().x,
                                         (float) Plat.tailleCase/sprite.getTexture()->getSize().y);
@@ -33,15 +37,9 @@ class Piece{
         }
 
         void deplacerPiece(Plateau& Plat, int xDep, int yDep, int xArr, int yArr){
-            char piece = Plat.board[yDep][xDep];
-            Plat.board[yDep][xDep] = '.';
-            Plat.board[yArr][xArr] = piece;
-        }
-
-        void verifDeplacement(Plateau& Plat, int xDep, int yDep, int xArr, int yArr){
-            if(Plat.board[xDep][yDep]){
-
-            }
+            char piece = Plat.board[xDep][yDep];
+            Plat.board[xDep][yDep] = '.';
+            Plat.board[xArr][yArr] = piece;
         }
 
     private:
