@@ -5,6 +5,8 @@
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/Text.hpp>
+#include <SFML/System/Vector2.hpp>
+#include <csignal>
 #include <string>
 
 #include "Text.h"
@@ -12,6 +14,7 @@
 class Plateau{
     public:
         int tailleCase = 120;
+        int taillePossiblePos = 60;
         int posPlatX = 50;
         int posPlatY = 70;
 
@@ -40,7 +43,7 @@ class Plateau{
                         rectangle.setFillColor(sf::Color::Yellow);
                     }
                     if(xDep != -1){
-                     affichePossible(fen, Plat, xDep, yDep, rectangle);
+                        affichePossible(fen, Plat, xDep, yDep, rectangle);
                     }
 
                     fen.draw(rectangle);
@@ -63,10 +66,8 @@ class Plateau{
             if(Plat.board[xDep][yDep] != '.'){
                 switch (Plat.board[xDep][yDep]) {
                     case 'p':
-                        checkPionNoir(fen, Plat, xDep, yDep, rect);
-                        break;
                     case 'P':
-                        checkPionBlanc(fen, Plat, xDep, yDep, rect);
+                        checkPion(fen, Plat, xDep, yDep, rect);
                         break;
 
                     case 't':
@@ -97,17 +98,47 @@ class Plateau{
             }
         }
 
-        void checkPionBlanc(sf::RenderWindow& fen, Plateau& Plat, int xDep, int yDep, sf::RectangleShape rect){
+        void checkPion(sf::RenderWindow& fen, Plateau& Plat, int xDep, int yDep, sf::RectangleShape rect){
             rect.setFillColor(sf::Color::Green);
-            if(xDep == 6) {
-                rect.setPosition(posPlatX + (yDep*tailleCase), posPlatY + ((xDep-2)*tailleCase));
+            if(Plat.board[xDep][yDep] == 'P'){
+                if(xDep == 6) {
+                    rect.setPosition(posPlatX + (yDep*tailleCase), posPlatY + ((xDep-2)*tailleCase));
+                    fen.draw(rect);
+                }
+                rect.setPosition(posPlatX + (yDep*tailleCase), posPlatY + ((xDep-1)*tailleCase));
                 fen.draw(rect);
+
+                if(Plat.board[xDep-1][yDep-1] != '.'){
+                    rect.setPosition(posPlatX + ((yDep-1)*tailleCase), posPlatY + ((xDep-1)*tailleCase));
+                    rect.setFillColor(sf::Color::Red);
+                    fen.draw(rect);
+                }
+                if(Plat.board[xDep-1][yDep+1] != '.'){
+                    rect.setPosition(posPlatX + ((yDep+1)*tailleCase), posPlatY + ((xDep-1)*tailleCase));
+                    rect.setFillColor(sf::Color::Red);
+                    fen.draw(rect);
+                }
+            } else {
+                if(xDep == 1){
+                    rect.setPosition(posPlatX + (yDep*tailleCase), posPlatY + ((xDep+2)*tailleCase));
+                    fen.draw(rect);
+                }
+                rect.setPosition(posPlatX + (yDep*tailleCase), posPlatY + ((xDep+1)*tailleCase));
+                fen.draw(rect);
+
+                if(Plat.board[xDep+1][yDep+1] != '.'){
+                    rect.setPosition(posPlatX + ((yDep+1)*tailleCase), posPlatY + ((xDep+1)*tailleCase));
+                    rect.setFillColor(sf::Color::Red);
+                    fen.draw(rect);
+                }
+                if(Plat.board[xDep+1][yDep-1] != '.'){
+                    rect.setPosition(posPlatX + ((yDep-1)*tailleCase), posPlatY + ((xDep+1)*tailleCase));
+                    rect.setFillColor(sf::Color::Red);
+                    fen.draw(rect);
+                }
             }
-            rect.setPosition(posPlatX + (yDep*tailleCase), posPlatY + ((xDep-1)*tailleCase));
-            fen.draw(rect);
         }
 
-        void checkPionNoir(sf::RenderWindow& fen, Plateau& Plat, int xDep, int yDep, sf::RectangleShape rect){}
 
         void checkTour(sf::RenderWindow& fen, Plateau& Plat, int xDep, int yDep, sf::RectangleShape rect){}
 
